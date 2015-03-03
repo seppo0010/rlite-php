@@ -1,0 +1,28 @@
+language: php
+
+php:
+    - 5.3
+    - 5.4
+    - 5.5
+    - 5.6
+
+env:
+    global:
+        - TEST_PHP_ARGS=-q
+
+install:
+    - |
+        git clone https://github.com/seppo0010/rlite.git \
+        && pushd rlite \
+        && make \
+        && sudo make install \
+        && popd
+
+script:
+    - phpize
+    - ./configure --enable-rlite
+    - make
+    - make test
+
+notifications:
+  email: false
